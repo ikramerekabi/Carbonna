@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct node {
+    char car_owner_name;
+    int number_plate;
+    int car_owner_number;
+    int emission_amount;
+    int fine_amount;
+} Car;
+
+Car* Car_infos;
+int number;
+int get_nlines(char* filename)
+{
+    FILE *fp;
+    fp=  fopen(filename, "r");
+    int nlines = 0;
+
+    int ch;
+    while (!feof(fp)) {
+        ch = fgetc(fp);
+        if (ch == '\n') {
+            nlines++;
+        }
+    }
+
+    fseek(fp, 0, SEEK_SET);
+    return nlines;
+}
+
+
+
+
+void import_accounts(char* filename){
+    
+      FILE *file;
+    int i = 0;
+    int n= get_nlines("data.txt");
+    number= n;
+    Car_infos = calloc(n, sizeof(int));
+
+    file = fopen(filename, "r");
+
+    while (EOF != fscanf(file, "%c %d %d %d %d", &Car_infos[i].car_owner_name,
+                                            &Car_infos[i].number_plate , 
+                                            &Car_infos[i].car_owner_number ,
+                                            &Car_infos[i].emission_amount ,
+                                            &Car_infos[i].fine_amount ))
+    {
+        i++;
+    }
+
+
+
+
+    fclose(file);
+    
+}
+void appeal_fines(int number_plate){
+    char reason[100];
+    int j;
+    for (int i = 0; i < number; ++i)
+  {
+    if(number_plate==Car_infos[i].number_plate){
+        j=i;
+    }
+  }
+    if((Car_infos[j].fine_amount)>0){
+        printf("Total Fees are: %d \n",&Car_infos->fine_amount);
+        printf("Enter reason for appeal (Max 100 chars): ");
+        scanf("%99s", reason);  
+        
+    }
+    
+    
+}
